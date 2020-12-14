@@ -14,6 +14,11 @@ const userSchema = mongoose.Schema({
   mobile: {
     type: Number,
     require: true,
+  },
+  role: {
+    // 0为村民 1为村长
+    type: Number,
+    default: 0
   }
 })
 
