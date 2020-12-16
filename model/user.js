@@ -19,15 +19,19 @@ const userSchema = mongoose.Schema({
     // 0为村民 1为村长
     type: Number,
     default: 0
+  },
+  address:{
+    type:String,
+    default:"平顶山"
   }
 })
 
 const User = mongoose.model('user', userSchema);
 
 // User.create({
-//   username: 'fj',
-//   password: '1234567',
-//   mobile: 17637543547
+//   username: 'wwx',
+//   password: '123456',
+//   mobile: 150
 // }).then(res => {
 //   console.log("插入文档成功");
 // }).catch(err => {

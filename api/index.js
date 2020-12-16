@@ -37,7 +37,7 @@ api.post("/login", async (req, res) => {
 api.post('/auth', async (req, res) => {
   const token = req.headers.authorization.split(" ").pop()
   const { mobile } = jwt.verify(token, "yyjkn");
-  ``
+ 
   let result = await User.findOne({ mobile })
   res.send(result)
 })
