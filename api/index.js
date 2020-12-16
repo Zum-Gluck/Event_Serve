@@ -1,6 +1,7 @@
 const express = require("express");
 const { User } = require("../model/user");
 const api = express.Router();
+const jwt = require("jsonwebtoken");
 
 api.post("/registered", (req, res) => {
   // 将用户输入的信息解构
@@ -26,10 +27,18 @@ api.post("/login", async (req, res) => {
   })
 
   if (result.password == password) {
-    res.send('登录成功')
+    const token = jwt.sign({ mobile }, "yyjkn");
+    res.send({ msg: "登录成功", token, status: 200 })
   } else {
-    res.status(400).send('账号密码错误');
+    res.send({ msg: "账号或密码错误", status: 400 });
   }
 })
 
+api.post('/auth', async (req, res) => {
+  const token = req.headers.authorization.split(" ").pop()
+  const { mobile } = jwt.verify(token, "yyjkn");
+  ``
+  let result = await User.findOne({ mobile })
+  res.send(result)
+})
 module.exports = api
