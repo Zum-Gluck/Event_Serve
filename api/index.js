@@ -50,28 +50,31 @@ api.post('/auth', async (req, res) => {
 api.post("/event", (req, res) => {
   if (!req.body) return
   let { uname, description, tel, level, content, id, fileList, fileName } = req.body
-  
+
+  let pathArr = []
   if (fileList) {
     fileList.forEach((item, index) => {  //处理图片
       let s = item.content;
       let arr = s.split(",")
       let buffer = Buffer.from(arr[1], 'base64');
       // 存放图片的路径
-      let distPath = "./Temp/" + fileName[index]
+      let distPath = "./public/upload/" + fileName[index]
+      pathArr.push(`/upload/${fileName[index]}`)
       writeFileRecursive(distPath, buffer, function (err) {
         if (err) return console.log(err);
         console.log("Success");
       })
     })
   }
-
   Event.create({
     uname,
     description,
     tel,
     level,
     content,
-    user: id
+    user: id,
+    uploadImg: pathArr
+
   }).then(doc => {
     console.log("插入文档成功");
     res.send({
@@ -92,7 +95,12 @@ api.get('/event', async (req, res) => {
   let result = await Event.find({ user: id })
   res.send(result)
 })
+
+api.get('/details', async (req, res) => {
+  let { _id } = req.query;
+  let result = await Event.findOne({ _id })
+  res.send(result)
+})
 module.exports = api
 
-var fs = require('fs');
 

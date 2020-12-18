@@ -30,6 +30,9 @@ const EventSchema = mongoose.Schema({
   timer: {
     type: Date,
     default: Date.now
+  },
+  uploadImg:{
+    type:Array,
   }
 })
 

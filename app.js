@@ -1,10 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors")
+const path = require('path')
+
 const app = express();
 
-app.use(bodyParser.json({limit:'100mb'}));
-app.use(bodyParser.urlencoded({ limit:'100mb', extended: true }));
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 // 连接数据库
 require("./model/connect")
 require("./model/user")
