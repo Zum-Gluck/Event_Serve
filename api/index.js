@@ -3,9 +3,7 @@ const { User } = require("../model/user");
 const { Event } = require("../model/event");
 const api = express.Router();
 const jwt = require("jsonwebtoken");
-const path = require("path");
 const { writeFileRecursive } = require("../Tools/writeFileRecursive")
-var fs = require("fs");
 
 
 api.post("/registered", (req, res) => {
